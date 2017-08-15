@@ -2,6 +2,17 @@ class Post
   attr_accessor :id, :title, :body
   @@all = []
 
+  def self.create_table
+    sql = <<-SQL
+    CREATE TABLE IF NOT EXISTS posts (
+      id INTEGER PRIMARY KEY,
+      title VARCHAR(255),
+      body TEXT
+    )
+
+
+    SQL
+  end
   def save
     @@all << self
     self.id = @@all.size
