@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+
+require_relative '../config/environment'
+
+puts "Welcome to My Blog!"
+
+input = ""
+
+while input != "exit"
+  puts "What would you like to read or write?"
+  input = gets.strip
+
+  case input
+    when "read"
+      Post.all.each do |post|
+        puts "#{post.id}. #{post.title}"
+      end
+
+      puts "Enter the post you'd like to read:"
+      post_id = gets.strip
+
+      post = Post.find_by_id(post_id)
+      puts ""
+      puts "#{post.title}"
+      puts "#{"-" * post.title.size}"
+      puts "#{post.body}"
+      puts ""
+      
+    when "write"
+      post = Post.new
+      puts "Please enter the title of the post:"
+      post.title = gets.strip
+      puts "Please enter the content of the post:"
+      post.body = gets.strip
+
+      post.save
+
+    when "exit"
+      puts "Goodbye!"
+  end
+end
+
+
+# .create_table
+# .drop_table
+# #update
+# #insert
+# .new_from_db
+# .find_or_create_by
+# .find_by_name
+# #persisted?
+# #destroy
